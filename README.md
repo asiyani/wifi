@@ -1,11 +1,11 @@
 # wifi
-use wifi to get information about connected wireless in your go package.
+use wifi to get information about connected wireless in go app.
 Following information is available.
 
 ```go
 type Info struct {
-	SSID        string
-	Mac         string
+	SSID        string 
+	Mac         string 
 	Security    string
 	Channel     string
 	Frequency   string
@@ -24,7 +24,7 @@ go get github.com/asiyani/wifi
 ```go
 	out, err := wifi.GetInfo()
 	if err != nil {
-		fmt.Printf("%v", err)
+		log.Fatal(err)
 	}
 	fmt.Printf("%+v\n", out)
 
@@ -34,7 +34,7 @@ go get github.com/asiyani/wifi
 
 # Todo
 * Add support for Linux
-* calculate Frequency from Channel
+
 
 # Licence 
 
