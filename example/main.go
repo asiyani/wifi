@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/asiyani/wifi"
 )
@@ -9,7 +10,7 @@ import (
 func main() {
 	out, err := wifi.GetInfo()
 	if err != nil {
-		fmt.Printf("%v", err)
+		log.Fatal(err)
 	}
 	fmt.Printf("%+v\n", out)
 
