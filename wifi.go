@@ -135,7 +135,7 @@ func getLinuxInfo() Info {
 	return i
 }
 
-//ChanToFreq will return currensponding center middle frequency for given wifi Channel
+//ChanToFreq will return corresponding center middle frequency for given wifi Channel
 func ChanToFreq(ch string) string {
 	if ch == "14" {
 		return "2484"

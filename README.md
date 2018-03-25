@@ -29,7 +29,7 @@ go get github.com/asiyani/wifi
 	fmt.Printf("%+v\n", out)
 
 	//output:-
-	//{SSID:5GHz-wifi Mac:44:44:44:44:44:44 Security:wpa2-psk Channel:44,1 Frequency: SignalLevel:-70 MaxRate:300}
+	//{SSID:5GHz-wifi Mac:44:44:44:44:44:44 Security:wpa2-psk Channel:44,1 Frequency:5220 SignalLevel:-70 MaxRate:300}
 ```
 
 
