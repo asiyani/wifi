@@ -68,7 +68,7 @@ func getOsxInfo() Info {
 			i.Security = strings.TrimSpace(sub[2])
 		}
 	}
-	i.Frequency = mapToFreq(i.Channel)
+	i.Frequency = ChanToFreq(i.Channel)
 
 	return i
 }
@@ -104,17 +104,39 @@ func getWinInfo() Info {
 			i.Security = strings.TrimSpace(sub[2])
 		}
 	}
-	i.Frequency = mapToFreq(i.Channel)
+	i.Frequency = ChanToFreq(i.Channel)
 
 	return i
 }
 
 func getLinuxInfo() Info {
-	//TODO: Need to get information for linux
-	return Info{}
+	linCmd := "nmcli"
+	var i Info
+	cmd := exec.Command(linCmd, "--terse", "--fields", "active,ssid,bssid,mode,chan,freq,signal,security,device,rate", "device", "wifi")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+	line := strings.Split(out.String(), "\n")
+	for _, l := range line {
+		if strings.Split(l, ":")[0] == "yes" {
+			sl := strings.Split(l, ":")
+			i.SSID = sl[1]
+			i.Mac = strings.Replace(strings.Join(sl[2:8], ":"), "\\", "", -1)
+			i.Security = sl[12]
+			i.Channel = sl[9]
+			i.Frequency = sl[10]
+			i.SignalLevel = sl[11]
+			i.MaxRate = strings.Split(sl[14], " ")[0]
+		}
+	}
+	return i
 }
 
-func mapToFreq(ch string) string {
+//ChanToFreq will return currensponding center middle frequency for given wifi Channel
+func ChanToFreq(ch string) string {
 	if ch == "14" {
 		return "2484"
 	}
